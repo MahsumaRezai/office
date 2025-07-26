@@ -17,7 +17,7 @@ document.getElementById('personalForm').addEventListener('submit', function(even
     const serviceType = document.getElementById('serviceType').value;
     const gender = document.getElementById('gender').value;
 
-    // ساخت شیء جدید برای ذخیره داده‌ها
+    // ایجاد یک شیء برای ذخیره اطلاعات
     const userData = {
         firstName,
         lastName,
@@ -35,13 +35,13 @@ document.getElementById('personalForm').addEventListener('submit', function(even
         gender
     };
 
-    // دریافت داده‌های قبلی از localStorage یا ایجاد آرایه خالی
+    // گرفتن داده‌های ذخیره شده از localStorage یا ایجاد یک آرایه جدید
     let storedData = JSON.parse(localStorage.getItem('userData')) || [];
 
     // اضافه کردن داده جدید به آرایه
     storedData.push(userData);
 
-    // ذخیره مجدد داده‌ها در localStorage
+    // ذخیره اطلاعات جدید در localStorage
     localStorage.setItem('userData', JSON.stringify(storedData));
 
     // پاک کردن فرم پس از ارسال

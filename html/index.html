@@ -9,7 +9,7 @@
 <body>
     <div class="form-container">
         <h2>اطلاعات شخصی خود را وارد کنید</h2>
-        <form id="personalForm">
+        <form id="personalForm" onsubmit="displayTable(event)">
             <label for="firstName">نام</label>
             <input type="text" id="firstName" name="firstName" required>
 
@@ -61,10 +61,80 @@
                 <option value="female">مونث</option>
             </select>
 
-            <button type="submit">ارسال به فرم</button>
+            <button type="submit">نمایش اطلاعات</button>
         </form>
     </div>
 
-    <script src="../data/main.js"></script> <!-- لینک به فایل جاوا اسکریپت -->
+    <script>
+        function displayTable(event) {
+            event.preventDefault(); // جلوگیری از ارسال فرم به صورت معمول
+
+            // گرفتن مقادیر فرم
+            const formData = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                fatherName: document.getElementById('fatherName').value,
+                familyName: document.getElementById('familyName').value,
+                passportNumber: document.getElementById('passportNumber').value,
+                dob: document.getElementById('dob').value,
+                passportIssueDate: document.getElementById('passportIssueDate').value,
+                expiryDate: document.getElementById('expiryDate').value,
+                phoneNumber: document.getElementById('phoneNumber').value,
+                afghanistanPhoneNumber: document.getElementById('afghanistanPhoneNumber').value,
+                afghanistanAddress: document.getElementById('afghanistanAddress').value,
+                iranAddress: document.getElementById('iranAddress').value,
+                serviceType: document.getElementById('serviceType').value,
+                gender: document.getElementById('gender').value
+            };
+
+            // ساخت HTML برای جدول
+            const tableContent = `
+                <h2>اطلاعات وارد شده:</h2>
+                <table border="1" style="width:100%; border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th>نام</th>
+                            <th>نام خانوادگی</th>
+                            <th>نام پدر</th>
+                            <th>نام خانوادگی</th>
+                            <th>شماره پاسپورت</th>
+                            <th>تاریخ تولد</th>
+                            <th>تاریخ صدور پاسپورت</th>
+                            <th>تاریخ انقضای پاسپورت</th>
+                            <th>شماره تماس</th>
+                            <th>شماره تماس افغانستان</th>
+                            <th>آدرس افغانستان</th>
+                            <th>آدرس ایران</th>
+                            <th>نوع خدمات</th>
+                            <th>جنسیت</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>${formData.firstName}</td>
+                            <td>${formData.lastName}</td>
+                            <td>${formData.fatherName}</td>
+                            <td>${formData.familyName}</td>
+                            <td>${formData.passportNumber}</td>
+                            <td>${formData.dob}</td>
+                            <td>${formData.passportIssueDate}</td>
+                            <td>${formData.expiryDate}</td>
+                            <td>${formData.phoneNumber}</td>
+                            <td>${formData.afghanistanPhoneNumber}</td>
+                            <td>${formData.afghanistanAddress}</td>
+                            <td>${formData.iranAddress}</td>
+                            <td>${formData.serviceType}</td>
+                            <td>${formData.gender}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            `;
+
+            // باز کردن صفحه جدید و نمایش جدول
+            const newWindow = window.open();
+            newWindow.document.write(tableContent);
+            newWindow.document.title = "اطلاعات فرم";
+        }
+    </script>
 </body>
 </html>
