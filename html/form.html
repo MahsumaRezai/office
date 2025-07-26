@@ -1,21 +1,26 @@
-window.onload = function() {
-    // دریافت اطلاعات از localStorage
-    const userData = JSON.parse(localStorage.getItem('userData'));
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نمایش اطلاعات</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <h2>اطلاعات ذخیره شده</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>نام</th>
+                <th>نام خانوادگی</th>
+                <th>شماره تماس</th>
+            </tr>
+        </thead>
+        <tbody id="dataTable">
+            <!-- داده‌ها اینجا نمایش داده خواهند شد -->
+        </tbody>
+    </table>
 
-    if (userData) {
-        // نمایش داده‌ها در جدول
-        const table = document.getElementById('dataTable');
-        userData.forEach(data => {
-            const newRow = `
-                <tr>
-                    <td>${data.firstName}</td>
-                    <td>${data.lastName}</td>
-                    <td>${data.phoneNumber}</td>
-                </tr>
-            `;
-            table.innerHTML += newRow;
-        });
-    } else {
-        alert('هیچ داده‌ای برای نمایش وجود ندارد');
-    }
-};
+    <script src="../data/display.js"></script> <!-- لینک به فایل نمایش اطلاعات -->
+</body>
+</html>

@@ -88,6 +88,31 @@ button:focus {
     outline: none;
 }
 
+table {
+    width: 100%;
+    margin-top: 30px;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
 /* حالت برای موبایل */
 @media (max-width: 600px) {
     .form-container {
@@ -101,5 +126,9 @@ button:focus {
 
     input, select, button {
         font-size: 16px;
+    }
+
+    table {
+        font-size: 12px;
     }
 }

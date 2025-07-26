@@ -17,31 +17,7 @@ document.getElementById('personalForm').addEventListener('submit', function(even
     const serviceType = document.getElementById('serviceType').value;
     const gender = document.getElementById('gender').value;
 
-    // ایجاد یک ردیف جدید در جدول
-    const newRow = `
-        <tr>
-            <td>${firstName}</td>
-            <td>${lastName}</td>
-            <td>${fatherName}</td>
-            <td>${familyName}</td>
-            <td>${passportNumber}</td>
-            <td>${dob}</td>
-            <td>${passportIssueDate}</td>
-            <td>${expiryDate}</td>
-            <td>${phoneNumber}</td>
-            <td>${afghanistanPhoneNumber}</td>
-            <td>${afghanistanAddress}</td>
-            <td>${iranAddress}</td>
-            <td>${serviceType}</td>
-            <td>${gender}</td>
-        </tr>
-    `;
-
-    // ذخیره داده‌ها در جدول
-    const table = document.getElementById('dataTable');
-    table.innerHTML += newRow;
-
-    // ذخیره اطلاعات در localStorage
+    // ساخت شیء جدید برای ذخیره داده‌ها
     const userData = {
         firstName,
         lastName,
@@ -59,9 +35,13 @@ document.getElementById('personalForm').addEventListener('submit', function(even
         gender
     };
 
-    // گرفتن داده‌ها از localStorage و اضافه کردن داده جدید
+    // دریافت داده‌های قبلی از localStorage یا ایجاد آرایه خالی
     let storedData = JSON.parse(localStorage.getItem('userData')) || [];
+
+    // اضافه کردن داده جدید به آرایه
     storedData.push(userData);
+
+    // ذخیره مجدد داده‌ها در localStorage
     localStorage.setItem('userData', JSON.stringify(storedData));
 
     // پاک کردن فرم پس از ارسال
