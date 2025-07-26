@@ -1,0 +1,105 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* فرم از بالای صفحه شروع می‌شود */
+    height: 100vh;
+    padding-top: 50px; /* فاصله از بالای صفحه */
+}
+
+.form-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    width: 450px;  /* عرض فرم بیشتر */
+    text-align: center;
+    height: auto;  /* ارتفاع فرم متناسب با محتوا */
+    margin-top: 20px; /* فاصله بالای فرم از بالا */
+    box-sizing: border-box;
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+label {
+    display: block;
+    text-align: right;
+    margin-top: 12px;
+    font-size: 14px;
+    color: #555;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    margin-bottom: 18px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease;
+    box-sizing: border-box; /* اطمینان از اعمال فاصله‌ها */
+}
+
+input:focus, select:focus {
+    border-color: #4CAF50;
+    outline: none;
+    background-color: #fff;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#output {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    text-align: left;
+    color: #333;
+}
+
+button:focus {
+    outline: none;
+}
+
+/* حالت برای موبایل */
+@media (max-width: 600px) {
+    .form-container {
+        width: 100%;
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    input, select, button {
+        font-size: 16px;
+    }
+}
