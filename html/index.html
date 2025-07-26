@@ -61,6 +61,16 @@
                 <option value="female">مونث</option>
             </select>
 
+            <!-- فیلد آپلود عکس -->
+            <label for="imageUpload">آپلود عکس</label>
+            <input type="file" id="imageUpload" name="imageUpload" accept="image/*" onchange="previewImage(event)">
+
+            <!-- نمایش پیش‌نمایش عکس -->
+            <div id="imagePreviewContainer" style="display:none;">
+                <h3>پیش‌نمایش تصویر:</h3>
+                <img id="imagePreview" src="" alt="Preview" style="max-width: 200px; max-height: 200px;">
+            </div>
+
             <button type="submit">نمایش اطلاعات</button>
         </form>
     </div>
@@ -84,7 +94,8 @@
                 afghanistanAddress: document.getElementById('afghanistanAddress').value,
                 iranAddress: document.getElementById('iranAddress').value,
                 serviceType: document.getElementById('serviceType').value,
-                gender: document.getElementById('gender').value
+                gender: document.getElementById('gender').value,
+                image: document.getElementById('imagePreview').src // گرفتن تصویر
             };
 
             // ساخت HTML برای جدول
@@ -107,6 +118,7 @@
                             <th>آدرس ایران</th>
                             <th>نوع خدمات</th>
                             <th>جنسیت</th>
+                            <th>تصویر</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -125,6 +137,7 @@
                             <td>${formData.iranAddress}</td>
                             <td>${formData.serviceType}</td>
                             <td>${formData.gender}</td>
+                            <td><img src="${formData.image}" alt="Uploaded Image" style="max-width: 100px; max-height: 100px;"></td>
                         </tr>
                     </tbody>
                 </table>
@@ -134,6 +147,18 @@
             const newWindow = window.open();
             newWindow.document.write(tableContent);
             newWindow.document.title = "اطلاعات فرم";
+        }
+
+        // نمایش پیش‌نمایش تصویر
+        function previewImage(event) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                const preview = document.getElementById('imagePreview');
+                const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+                preview.src = reader.result;
+                imagePreviewContainer.style.display = "block"; // نمایش پیش‌نمایش
+            };
+            reader.readAsDataURL(event.target.files[0]); // خواندن فایل تصویری
         }
     </script>
 </body>
