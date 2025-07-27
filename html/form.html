@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <title>فرم ثبت اطلاعات</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <style>
+    body {
+      font-family: Tahoma;
+      margin: 30px;
+      background-color: #f7f7f7;
+    }
+    form {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px #ccc;
+      max-width: 600px;
+      margin: auto;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #2196F3;
+      border: none;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<form id="infoForm">
+  <h2>فرم ثبت اطلاعات</h2>
+  <label>کد شناسایی (ID): <input type="text" name="userId" /></label>
+  <label>نام: <input type="text" name="firstName" /></label>
+  <label>نام پدر: <input type="text" name="fatherName" /></label>
+  <label>تخلص: <input type="text" name="lastName" /></label>
+  <label>شماره پاسپورت: <input type="text" name="passportNumber" /></label>
+  <label>تاریخ تولد: <input type="date" name="dob" /></label>
+  <label>تاریخ صدور پاسپورت: <input type="date" name="passportIssueDate" /></label>
+  <label>تاریخ ختم پاسپورت: <input type="date" name="expiryDate" /></label>
+  <label>جنسیت:
+    <select name="gender">
+      <option value="مرد">مرد</option>
+      <option value="زن">زن</option>
+    </select>
+  </label>
+  <label>شماره تماس ایران: <input type="text" name="iranPhone" /></label>
+  <label>شماره تماس افغانستان: <input type="text" name="afghanPhone" /></label>
+  <label>آدرس ایران: <input type="text" name="iranAddress" /></label>
+  <label>آدرس افغانستان: <input type="text" name="afghanAddress" /></label>
+  <label>نوع خدمات:
+    <select name="serviceType">
+      <option value="زیارتی">زیارتی</option>
+      <option value="سیاحتی">سیاحتی</option>
+      <option value="درمانی">درمانی</option>
+    </select>
+  </label>
+  <label>عکس: <input type="file" name="image" accept="image/*" /></label>
+
+  <button type="button" onclick="saveData()">ذخیره اطلاعات</button>
+  <button type="button" onclick="showDataPage()">نمایش اطلاعات ذخیره‌شده</button>
+  <button type="button" onclick="showManifest()">نمایش مانیفست</button>
+  <button type="button" onclick="exportToExcel()">دریافت Excel</button>
+</form>
+
+<script>
+  let dataList = [];
+
+  function getFormData() {
+    const form = document.forms["infoForm"];
+    const reader = new FileReader();
+    const file = form.image.files[0];
+
+    return new Promise((resolve) => {
+      if (file) {
+        reader.onload = function (e) {
+          resolve({
+            userId: form.userId.value,
+            firstName: form.firstName.value,
+            fatherName: form.fatherName.value,
+            lastName: form.lastName.value,
+            passportNumber: form.passportNumber.value,
+            dob: form.dob.value,
+            passportIssueDate: form.passportIssueDate.value,
+            expiryDate: form.expiryDate.value,
+            gender: form.gender.value,
+            iranPhone: form.iranPhone.value,
+            afghanPhone: form.afghanPhone.value,
+            iranAddress: form.iranAddress.value,
+            afghanAddress: form.afghanAddress.value,
+            serviceType: form.serviceType.value,
+            image: e.target.result
+          });
+        };
+        reader.readAsDataURL(file);
+      } else {
+        resolve({
+          userId: form.userId.value,
+          firstName: form.firstName.value,
+          fatherName: form.fatherName.value,
+          lastName: form.lastName.value,
+          passportNumber: form.passportNumber.value,
+          dob: form.dob.value,
+          passportIssueDate: form.passportIssueDate.value,
+          expiryDate: form.expiryDate.value,
+          gender: form.gender.value,
+          iranPhone: form.iranPhone.value,
+          afghanPhone: form.afghanPhone.value,
+          iranAddress: form.iranAddress.value,
+          afghanAddress: form.afghanAddress.value,
+          serviceType: form.serviceType.value,
+          image: ""
+        });
+      }
+    });
+  }
+
+  async function saveData() {
+    const data = await getFormData();
+    dataList.push(data);
+    alert("اطلاعات ذخیره شد!");
+  }
+
+  function showDataPage() {
+    let style = `
+      <style>
+        body { font-family: Tahoma; direction: rtl; padding: 20px; background: #fff; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 8px; border: 1px solid #aaa; text-align: center; font-size: 14px; }
+        th { background-color: #2196F3; color: white; }
+        img { max-width: 60px; border-radius: 5px; }
+      </style>
+    `;
+    let html = style + "<h2>لیست اطلاعات ذخیره‌شده</h2><table><tr>" +
+      "<th>کد</th><th>نام</th><th>نام پدر</th><th>تخلص</th><th>پاسپورت</th>" +
+      "<th>تولد</th><th>جنسیت</th><th>شماره ایران</th><th>شماره افغانستان</th><th>نوع خدمات</th><th>عکس</th></tr>";
+    dataList.forEach(item => {
+      html += `<tr>
+        <td>${item.userId}</td>
+        <td>${item.firstName}</td>
+        <td>${item.fatherName}</td>
+        <td>${item.lastName}</td>
+        <td>${item.passportNumber}</td>
+        <td>${item.dob}</td>
+        <td>${item.gender}</td>
+        <td>${item.iranPhone}</td>
+        <td>${item.afghanPhone}</td>
+        <td>${item.serviceType}</td>
+        <td>${item.image ? `<img src="${item.image}" />` : "—"}</td>
+      </tr>`;
+    });
+    html += "</table>";
+    const win = window.open("", "_blank");
+    win.document.write(html);
+    win.document.title = "اطلاعات ذخیره‌شده";
+  }
+
+  function showManifest() {
+    let style = `
+      <style>
+        body { font-family: Tahoma; direction: rtl; padding: 20px; background: #fff; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 8px; border: 1px solid #aaa; text-align: center; font-size: 14px; }
+        th { background-color: #4CAF50; color: white; }
+        img { max-width: 60px; border-radius: 5px; }
+      </style>
+    `;
+    let html = style + "<h2>مانیفست</h2><table><tr>" +
+      "<th>کد</th><th>نام</th><th>نام پدر</th><th>تخلص</th><th>شماره پاسپورت</th><th>تاریخ تولد</th><th>جنسیت</th><th>آدرس ایران</th><th>نوع خدمات</th><th>عکس</th></tr>";
+    dataList.forEach(item => {
+      html += `<tr>
+        <td>${item.userId}</td>
+        <td>${item.firstName}</td>
+        <td>${item.fatherName}</td>
+        <td>${item.lastName}</td>
+        <td>${item.passportNumber}</td>
+        <td>${item.dob}</td>
+        <td>${item.gender}</td>
+        <td>${item.iranAddress}</td>
+        <td>${item.serviceType}</td>
+        <td>${item.image ? `<img src="${item.image}" />` : "—"}</td>
+      </tr>`;
+    });
+    html += "</table>";
+    const win = window.open("", "_blank");
+    win.document.write(html);
+    win.document.title = "مانیفست";
+  }
+
+  function exportToExcel() {
+    if (dataList.length === 0) {
+      alert("هیچ داده‌ای برای خروجی نیست!");
+      return;
+    }
+    const exportData = dataList.map(item => ({
+      کد: item.userId,
+      نام: item.firstName,
+      نام_پدر: item.fatherName,
+      تخلص: item.lastName,
+      پاسپورت: item.passportNumber,
+      تولد: item.dob,
+      جنسیت: item.gender,
+      تماس_ایران: item.iranPhone,
+      تماس_افغانستان: item.afghanPhone,
+      آدرس_ایران: item.iranAddress,
+      آدرس_افغانستان: item.afghanAddress,
+      خدمات: item.serviceType
+    }));
+    const worksheet = XLSX.utils.json_to_sheet(exportData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Manifest");
+    XLSX.writeFile(workbook, "manifest.xlsx");
+  }
+</script>
+</body>
+</html>

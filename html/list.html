@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>لیست کل اطلاعات ذخیره شده</title>
+<style>
+  body { font-family: Tahoma; direction: rtl; background: #f2f2f2; padding: 20px; }
+  h2 { text-align: center; color: #333; margin-bottom: 20px;}
+  table {
+    margin: auto;
+    border-collapse: collapse;
+    max-width: 1000px;
+    background: white;
+    box-shadow: 0 0 8px #aaa;
+    border-radius: 8px;
+    width: 95%;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+  }
+  th {
+    background-color: #2196F3;
+    color: white;
+  }
+  img {
+    max-width: 70px;
+    border-radius: 6px;
+  }
+  #backLink {
+    display: block;
+    margin: 30px auto;
+    text-align: center;
+    font-weight: bold;
+    color: #2196F3;
+    text-decoration: none;
+  }
+</style>
+</head>
+<body>
+
+<h2>کل اطلاعات ذخیره شده</h2>
+<div id="listContainer"></div>
+
+<a href="form.html" id="backLink">بازگشت به فرم ثبت اطلاعات</a>
+
+<script>
+  const container = document.getElementById('listContainer');
+  let dataList = JSON.parse(localStorage.getItem('dataList') || '[]');
+
+  if(dataList.length === 0){
+    container.innerHTML = '<p style="text-align:center; color:red;">هیچ داده‌ای ثبت نشده است.</p>';
+  } else {
+    let table = `<table>
+      <thead>
+        <tr>
+          <th>کد شناسایی (ID)</th>
+          <th>نام</th>
+          <th>نام پدر</th>
+          <th>تخلص</th>
+          <th>شماره پاسپورت</th>
+          <th>تاریخ تولد</th>
+          <th>جنسیت</th>
+          <th>تاریخ صدور</th>
+          <th>تاریخ ختم</th>
+          <th>شماره تماس ایران</th>
+          <th>شماره تماس افغانستان</th>
+          <th>آدرس ایران</th>
+          <th>آدرس افغانستان</th>
+          <th>نوع خدمات</th>
+          <th>عکس</th>
+        </tr>
+      </thead>
+      <tbody>`;
+
+    dataList.forEach(item => {
+      table += `<tr>
+        <td>${item.userId}</td>
+        <td>${item.firstName}</td>
+        <td>${item.fatherName}</td>
+        <td>${item.lastName}</td>
+        <td>${item.passportNumber}</td>
+        <td>${item.dob}</td>
+        <td>${item.gender}</td>
+        <td>${item.passportIssueDate}</td>
+        <td>${item.expiryDate}</td>
+        <td>${item.iranPhone}</td>
+        <td>${item.afghanistanPhone}</td>
+        <td>${item.iranAddress}</td>
+        <td>${item.afghanistanAddress}</td>
+        <td>${item.serviceType}</td>
+        <td><img src="${item.image}" alt="عکس" /></td>
+      </tr>`;
+    });
+
+    table += '</tbody></table>';
+    container.innerHTML = table;
+  }
+</script>
+
+</body>
+</html>

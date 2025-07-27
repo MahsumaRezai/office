@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>نمایش مانیفست</title>
+<style>
+  body { font-family: Tahoma; direction: rtl; background: #f2f2f2; padding: 20px; }
+  h2 { text-align: center; color: #333; }
+  table { margin: auto; border-collapse: collapse; max-width: 1000px; background: white; box-shadow: 0 0 8px #aaa; border-radius: 8px; }
+  th, td { border: 1px solid #ddd; padding: 10px; text-align: center; }
+  th { background-color: #2196F3; color: white; }
+  img { max-width: 80px; border-radius: 6px; }
+  #msg { text-align:center; color: red; margin-top: 20px; }
+  #backLink { display: block; margin: 30px auto; text-align: center; font-weight: bold; color: #2196F3; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<h2>آخرین اطلاعات ثبت شده (مانیفست)</h2>
+<div id="manifestContainer"></div>
+<a href="form.html" id="backLink">بازگشت به فرم ثبت اطلاعات</a>
+
+<script>
+  const container = document.getElementById('manifestContainer');
+  let dataList = JSON.parse(localStorage.getItem('dataList') || '[]');
+
+  if(dataList.length === 0){
+    container.innerHTML = '<p id="msg">هیچ داده‌ای ثبت نشده است.</p>';
+  } else {
+    const last = dataList[dataList.length -1];
+    const table = document.createElement('table');
+    table.innerHTML = `
+      <thead>
+        <tr>
+          <th>کد شناسایی (ID)</th>
+          <th>نام</th>
+          <th>نام پدر</th>
+          <th>تخلص</th>
+          <th>شماره پاسپورت</th>
+          <th>تاریخ تولد</th>
+          <th>جنسیت</th>
+          <th>تاریخ صدور</th>
+          <th>تاریخ ختم</th>
+          <th>شماره تماس ایران</th>
+          <th>شماره تماس افغانستان</th>
+          <th>آدرس ایران</th>
+          <th>آدرس افغانستان</th>
+          <th>نوع خدمات</th>
+          <th>عکس</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>${last.userId}</td>
+          <td>${last.firstName}</td>
+          <td>${last.fatherName}</td>
+          <td>${last.lastName}</td>
+          <td>${last.passportNumber}</td>
+          <td>${last.dob}</td>
+          <td>${last.gender}</td>
+          <td>${last.passportIssueDate}</td>
+          <td>${last.expiryDate}</td>
+          <td>${last.iranPhone}</td>
+          <td>${last.afghanistanPhone}</td>
+          <td>${last.iranAddress}</td>
+          <td>${last.afghanistanAddress}</td>
+          <td>${last.serviceType}</td>
+          <td><img src="${last.image}" alt="عکس" /></td>
+        </tr>
+      </tbody>
+    `;
+    container.appendChild(table);
+  }
+</script>
+
+</body>
+</html>
