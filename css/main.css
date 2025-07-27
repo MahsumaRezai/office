@@ -1,13 +1,13 @@
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Vazir', 'Arial', sans-serif;
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* فرم از بالای صفحه شروع می‌شود */
+    align-items: flex-start;
     height: 100vh;
-    padding-top: 50px; /* فاصله از بالای صفحه */
+    padding-top: 50px;
 }
 
 .form-container {
@@ -15,10 +15,10 @@ body {
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    width: 450px;  /* عرض فرم بیشتر */
+    width: 450px;
     text-align: center;
-    height: auto;  /* ارتفاع فرم متناسب با محتوا */
-    margin-top: 20px; /* فاصله بالای فرم از بالا */
+    height: auto;
+    margin-top: 20px;
     box-sizing: border-box;
 }
 
@@ -47,7 +47,7 @@ input, select {
     font-size: 14px;
     background-color: #f9f9f9;
     transition: border-color 0.3s ease;
-    box-sizing: border-box; /* اطمینان از اعمال فاصله‌ها */
+    box-sizing: border-box;
 }
 
 input:focus, select:focus {
@@ -73,6 +73,10 @@ button:hover {
     background-color: #45a049;
 }
 
+button:focus {
+    outline: none;
+}
+
 #output {
     margin-top: 20px;
     padding: 20px;
@@ -84,14 +88,19 @@ button:hover {
     color: #333;
 }
 
-button:focus {
-    outline: none;
-}
-
 table {
     width: 100%;
     margin-top: 30px;
     border-collapse: collapse;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 table, th, td {
@@ -99,7 +108,7 @@ table, th, td {
 }
 
 th, td {
-    padding: 10px;
+    padding: 12px;
     text-align: center;
     font-size: 14px;
 }
@@ -113,7 +122,20 @@ tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 
-/* حالت برای موبایل */
+tr:hover {
+    background-color: #e8f5e9;
+}
+
+/* تصویر آپلودشده */
+img.uploaded-image {
+    max-width: 120px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    margin-top: 15px;
+}
+
+/* برای موبایل */
 @media (max-width: 600px) {
     .form-container {
         width: 100%;
