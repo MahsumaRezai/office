@@ -3,40 +3,98 @@
 <head>
   <meta charset="UTF-8" />
   <title>فرم ثبت اطلاعات</title>
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <style>
     body {
-      font-family: Tahoma;
-      margin: 30px;
-      background-color: #f7f7f7;
+        font-family: 'Vazir', Tahoma, sans-serif;
+        background-color: #f5f7fa;
+        margin: 0;
+        padding: 20px;
+        direction: rtl;
     }
+
+    h1 {
+        text-align: center;
+        color: #2c3e50;
+        margin-bottom: 30px;
+    }
+
     form {
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px #ccc;
-      max-width: 600px;
-      margin: auto;
+        background-color: #ffffff;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 25px 30px;
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
     }
+
     label {
-      display: block;
-      margin-top: 10px;
+        display: block;
+        margin-bottom: 6px;
+        color: #34495e;
+        font-weight: bold;
     }
-    input, select {
-      width: 100%;
-      padding: 8px;
-      margin-top: 4px;
+
+    input[type="text"],
+    input[type="date"],
+    input[type="file"],
+    input[type="tel"],
+    select {
+        width: 100%;
+        padding: 10px 12px;
+        margin-bottom: 20px;
+        border: 1px solid #ccd6dd;
+        border-radius: 8px;
+        box-sizing: border-box;
+        transition: border 0.3s ease;
+        font-size: 14px;
     }
+
+    input[type="text"]:focus,
+    input[type="date"]:focus,
+    input[type="file"]:focus,
+    input[type="tel"]:focus,
+    select:focus {
+        border-color: #3498db;
+        outline: none;
+    }
+
     button {
-      margin-top: 15px;
-      padding: 10px 20px;
-      background-color: #2196F3;
-      border: none;
-      color: white;
-      border-radius: 8px;
-      cursor: pointer;
+        background-color: #3498db;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+        margin: 10px 5px 0 0;
+        transition: background-color 0.3s ease;
     }
-  </style>
+
+    button:hover {
+        background-color: #2980b9;
+    }
+
+    .form-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .form-group {
+        flex: 1 1 45%;
+    }
+
+    @media (max-width: 600px) {
+        .form-group {
+            flex: 1 1 100%;
+        }
+    }
+</style>
+
+ 
 </head>
 <body>
 
