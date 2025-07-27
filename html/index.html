@@ -6,43 +6,7 @@
     <title>ورود و ثبت اطلاعات</title>
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/style.css">
-    <style>
-        body {
-            font-family: Tahoma, sans-serif;
-            direction: rtl;
-            text-align: right;
-            background-color: #f9f9f9;
-            padding: 20px;
-        }
-        .login-container, .form-container {
-            max-width: 600px;
-            margin: auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
-        input, select {
-            width: 100%;
-            padding: 8px;
-            margin-top: 6px;
-            margin-bottom: 16px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 15px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            margin-left: 5px;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
+
 </head>
 <body>
 
@@ -52,7 +16,7 @@
     <label for="password">رمز عبور:</label>
     <input type="password" id="password">
     <button onclick="checkPassword()">ورود</button>
-    <p id="errorMessage" style="color:red;"></p>
+    <p id="errorMessage" class="error-message"></p>
 </div>
 
 <!-- فرم اطلاعات کاربر -->
@@ -110,7 +74,7 @@
 
         <div id="imagePreviewContainer" style="display:none;">
             <h3>پیش‌نمایش تصویر:</h3>
-            <img id="imagePreview" src="" alt="Preview" style="max-width: 200px; max-height: 200px;">
+            <img id="imagePreview" src="" alt="Preview" class="uploaded-image">
         </div>
 
         <button type="button" onclick="displayInfo()">نمایش اطلاعات</button>
@@ -119,7 +83,6 @@
 </div>
 
 <script>
-    // رمز عبور صحیح را اینجا تنظیم کنید
     const correctPassword = "12345";
 
     function checkPassword() {
@@ -153,9 +116,21 @@
 
     function displayInfo() {
         const data = getFormData();
+        const style = `
+            <style>
+                body { font-family: Tahoma, sans-serif; direction: rtl; background: #f4f4f4; padding: 20px; }
+                table { width: 100%; border-collapse: collapse; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); border-radius: 10px; overflow: hidden; }
+                th, td { padding: 12px; border: 1px solid #ddd; text-align: center; font-size: 14px; }
+                th { background-color: #4CAF50; color: white; }
+                tr:nth-child(even) { background-color: #f9f9f9; }
+                img { max-width: 100px; border-radius: 8px; }
+                h2 { color: #333; }
+            </style>
+        `;
         const content = `
+            ${style}
             <h2>اطلاعات وارد شده:</h2>
-            <table border="1" style="width:100%; border-collapse: collapse;">
+            <table>
                 <tr><th>نام</th><td>${data.firstName}</td></tr>
                 <tr><th>نام خانوادگی</th><td>${data.lastName}</td></tr>
                 <tr><th>نام پدر</th><td>${data.fatherName}</td></tr>
@@ -169,19 +144,30 @@
                 <tr><th>آدرس ایران</th><td>${data.iranAddress}</td></tr>
                 <tr><th>خدمات</th><td>${data.serviceType}</td></tr>
                 <tr><th>جنسیت</th><td>${data.gender}</td></tr>
-                <tr><th>عکس</th><td><img src="${data.image}" style="max-width:100px;"></td></tr>
+                <tr><th>عکس</th><td><img src="${data.image}" /></td></tr>
             </table>
         `;
-        const win = window.open();
+        const win = window.open("", "_blank");
         win.document.write(content);
         win.document.title = "اطلاعات شخصی";
     }
 
     function displayManifest() {
         const data = getFormData();
+        const style = `
+            <style>
+                body { font-family: Tahoma, sans-serif; direction: rtl; background: #f4f4f4; padding: 20px; }
+                table { width: 100%; border-collapse: collapse; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); border-radius: 10px; overflow: hidden; }
+                th, td { padding: 12px; border: 1px solid #ddd; text-align: center; font-size: 14px; }
+                th { background-color: #4CAF50; color: white; }
+                tr:nth-child(even) { background-color: #f9f9f9; }
+                h2 { color: #333; }
+            </style>
+        `;
         const content = `
+            ${style}
             <h2>مانیفست</h2>
-            <table border="1" style="width:100%; border-collapse: collapse;">
+            <table>
                 <tr>
                     <th>نام</th>
                     <th>نام خانوادگی</th>
@@ -198,7 +184,7 @@
                 </tr>
             </table>
         `;
-        const win = window.open();
+        const win = window.open("", "_blank");
         win.document.write(content);
         win.document.title = "مانیفست";
     }
